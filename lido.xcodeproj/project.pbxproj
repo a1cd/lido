@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B8E714A42851493500E13F0F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E714A32851493500E13F0F /* Tests_iOS.swift */; };
+		B8E714A62851493500E13F0F /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E714A52851493500E13F0F /* Tests_iOSLaunchTests.swift */; };
+		B8E714B02851493500E13F0F /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E714AF2851493500E13F0F /* Tests_macOS.swift */; };
+		B8E714B22851493500E13F0F /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E714B12851493500E13F0F /* Tests_macOSLaunchTests.swift */; };
+		B8E714B32851493500E13F0F /* lido.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E714882851493100E13F0F /* lido.xcdatamodeld */; };
+		B8E714B42851493500E13F0F /* lido.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B8E714882851493100E13F0F /* lido.xcdatamodeld */; };
+		B8E714B52851493500E13F0F /* lidoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148A2851493100E13F0F /* lidoApp.swift */; };
+		B8E714B62851493500E13F0F /* lidoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148A2851493100E13F0F /* lidoApp.swift */; };
+		B8E714B72851493500E13F0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148B2851493100E13F0F /* ContentView.swift */; };
+		B8E714B82851493500E13F0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148B2851493100E13F0F /* ContentView.swift */; };
+		B8E714B92851493500E13F0F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148C2851493100E13F0F /* Persistence.swift */; };
+		B8E714BA2851493500E13F0F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148C2851493100E13F0F /* Persistence.swift */; };
+		B8E714BB2851493500E13F0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E7148D2851493400E13F0F /* Assets.xcassets */; };
+		B8E714BC2851493500E13F0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E7148D2851493400E13F0F /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B8E714A02851493500E13F0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8E714832851493000E13F0F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8E714912851493400E13F0F;
+			remoteInfo = "lido (iOS)";
+		};
+		B8E714AC2851493500E13F0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8E714832851493000E13F0F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B8E714972851493400E13F0F;
+			remoteInfo = "lido (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B8E714892851493100E13F0F /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
+		B8E7148A2851493100E13F0F /* lidoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lidoApp.swift; sourceTree = "<group>"; };
+		B8E7148B2851493100E13F0F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B8E7148C2851493100E13F0F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		B8E7148D2851493400E13F0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B8E714922851493400E13F0F /* lido.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lido.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E714982851493400E13F0F /* lido.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lido.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E7149A2851493400E13F0F /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		B8E7149F2851493500E13F0F /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E714A32851493500E13F0F /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		B8E714A52851493500E13F0F /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
+		B8E714AB2851493500E13F0F /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E714AF2851493500E13F0F /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		B8E714B12851493500E13F0F /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B8E7148F2851493400E13F0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714952851493400E13F0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E7149C2851493500E13F0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714A82851493500E13F0F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B8E714822851493000E13F0F = {
+			isa = PBXGroup;
+			children = (
+				B8E714872851493100E13F0F /* Shared */,
+				B8E714992851493400E13F0F /* macOS */,
+				B8E714A22851493500E13F0F /* Tests iOS */,
+				B8E714AE2851493500E13F0F /* Tests macOS */,
+				B8E714932851493400E13F0F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B8E714872851493100E13F0F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B8E7148A2851493100E13F0F /* lidoApp.swift */,
+				B8E7148B2851493100E13F0F /* ContentView.swift */,
+				B8E7148C2851493100E13F0F /* Persistence.swift */,
+				B8E7148D2851493400E13F0F /* Assets.xcassets */,
+				B8E714882851493100E13F0F /* lido.xcdatamodeld */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B8E714932851493400E13F0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8E714922851493400E13F0F /* lido.app */,
+				B8E714982851493400E13F0F /* lido.app */,
+				B8E7149F2851493500E13F0F /* Tests iOS.xctest */,
+				B8E714AB2851493500E13F0F /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B8E714992851493400E13F0F /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8E7149A2851493400E13F0F /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		B8E714A22851493500E13F0F /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8E714A32851493500E13F0F /* Tests_iOS.swift */,
+				B8E714A52851493500E13F0F /* Tests_iOSLaunchTests.swift */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		B8E714AE2851493500E13F0F /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B8E714AF2851493500E13F0F /* Tests_macOS.swift */,
+				B8E714B12851493500E13F0F /* Tests_macOSLaunchTests.swift */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B8E714912851493400E13F0F /* lido (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E714BF2851493500E13F0F /* Build configuration list for PBXNativeTarget "lido (iOS)" */;
+			buildPhases = (
+				B8E7148E2851493400E13F0F /* Sources */,
+				B8E7148F2851493400E13F0F /* Frameworks */,
+				B8E714902851493400E13F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "lido (iOS)";
+			productName = "lido (iOS)";
+			productReference = B8E714922851493400E13F0F /* lido.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B8E714972851493400E13F0F /* lido (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E714C22851493500E13F0F /* Build configuration list for PBXNativeTarget "lido (macOS)" */;
+			buildPhases = (
+				B8E714942851493400E13F0F /* Sources */,
+				B8E714952851493400E13F0F /* Frameworks */,
+				B8E714962851493400E13F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "lido (macOS)";
+			productName = "lido (macOS)";
+			productReference = B8E714982851493400E13F0F /* lido.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B8E7149E2851493500E13F0F /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E714C52851493500E13F0F /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				B8E7149B2851493500E13F0F /* Sources */,
+				B8E7149C2851493500E13F0F /* Frameworks */,
+				B8E7149D2851493500E13F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8E714A12851493500E13F0F /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = B8E7149F2851493500E13F0F /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B8E714AA2851493500E13F0F /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B8E714C82851493500E13F0F /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				B8E714A72851493500E13F0F /* Sources */,
+				B8E714A82851493500E13F0F /* Frameworks */,
+				B8E714A92851493500E13F0F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B8E714AD2851493500E13F0F /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = B8E714AB2851493500E13F0F /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B8E714832851493000E13F0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					B8E714912851493400E13F0F = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					B8E714972851493400E13F0F = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					B8E7149E2851493500E13F0F = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = B8E714912851493400E13F0F;
+					};
+					B8E714AA2851493500E13F0F = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = B8E714972851493400E13F0F;
+					};
+				};
+			};
+			buildConfigurationList = B8E714862851493000E13F0F /* Build configuration list for PBXProject "lido" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B8E714822851493000E13F0F;
+			productRefGroup = B8E714932851493400E13F0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B8E714912851493400E13F0F /* lido (iOS) */,
+				B8E714972851493400E13F0F /* lido (macOS) */,
+				B8E7149E2851493500E13F0F /* Tests iOS */,
+				B8E714AA2851493500E13F0F /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B8E714902851493400E13F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714BB2851493500E13F0F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714962851493400E13F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714BC2851493500E13F0F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E7149D2851493500E13F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714A92851493500E13F0F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B8E7148E2851493400E13F0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714B32851493500E13F0F /* lido.xcdatamodeld in Sources */,
+				B8E714B92851493500E13F0F /* Persistence.swift in Sources */,
+				B8E714B52851493500E13F0F /* lidoApp.swift in Sources */,
+				B8E714B72851493500E13F0F /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714942851493400E13F0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714B42851493500E13F0F /* lido.xcdatamodeld in Sources */,
+				B8E714BA2851493500E13F0F /* Persistence.swift in Sources */,
+				B8E714B62851493500E13F0F /* lidoApp.swift in Sources */,
+				B8E714B82851493500E13F0F /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E7149B2851493500E13F0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714A62851493500E13F0F /* Tests_iOSLaunchTests.swift in Sources */,
+				B8E714A42851493500E13F0F /* Tests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8E714A72851493500E13F0F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B8E714B22851493500E13F0F /* Tests_macOSLaunchTests.swift in Sources */,
+				B8E714B02851493500E13F0F /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B8E714A12851493500E13F0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8E714912851493400E13F0F /* lido (iOS) */;
+			targetProxy = B8E714A02851493500E13F0F /* PBXContainerItemProxy */;
+		};
+		B8E714AD2851493500E13F0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B8E714972851493400E13F0F /* lido (macOS) */;
+			targetProxy = B8E714AC2851493500E13F0F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B8E714BD2851493500E13F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B8E714BE2851493500E13F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B8E714C02851493500E13F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.everettwilber.lido;
+				PRODUCT_NAME = lido;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B8E714C12851493500E13F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.everettwilber.lido;
+				PRODUCT_NAME = lido;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8E714C32851493500E13F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.everettwilber.lido;
+				PRODUCT_NAME = lido;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B8E714C42851493500E13F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.everettwilber.lido;
+				PRODUCT_NAME = lido;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B8E714C62851493500E13F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.everettwilber.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "lido (iOS)";
+			};
+			name = Debug;
+		};
+		B8E714C72851493500E13F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.everettwilber.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "lido (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B8E714C92851493500E13F0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.everettwilber.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "lido (macOS)";
+			};
+			name = Debug;
+		};
+		B8E714CA2851493500E13F0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8LM4R9G4S4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.everettwilber.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "lido (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B8E714862851493000E13F0F /* Build configuration list for PBXProject "lido" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E714BD2851493500E13F0F /* Debug */,
+				B8E714BE2851493500E13F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8E714BF2851493500E13F0F /* Build configuration list for PBXNativeTarget "lido (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E714C02851493500E13F0F /* Debug */,
+				B8E714C12851493500E13F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8E714C22851493500E13F0F /* Build configuration list for PBXNativeTarget "lido (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E714C32851493500E13F0F /* Debug */,
+				B8E714C42851493500E13F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8E714C52851493500E13F0F /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E714C62851493500E13F0F /* Debug */,
+				B8E714C72851493500E13F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B8E714C82851493500E13F0F /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B8E714C92851493500E13F0F /* Debug */,
+				B8E714CA2851493500E13F0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B8E714882851493100E13F0F /* lido.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B8E714892851493100E13F0F /* Shared.xcdatamodel */,
+			);
+			currentVersion = B8E714892851493100E13F0F /* Shared.xcdatamodel */;
+			path = lido.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B8E714832851493000E13F0F /* Project object */;
+}
