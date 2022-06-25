@@ -1,0 +1,8 @@
+/* 
+  Endpoints.strings
+  lido
+
+  Created by Everett Wilber on 6/21/22.
+  
+*/
+base = "http://localhost:8000/";= "hi";

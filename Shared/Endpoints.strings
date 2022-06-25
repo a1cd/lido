@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  lido
+
+  Created by Everett Wilber on 6/21/22.
+  
+*/
+baseUrl = "http://localhost:3000";
+createSessionToken = "/api/authenticate/new_session";
