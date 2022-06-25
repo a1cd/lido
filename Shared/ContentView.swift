@@ -39,6 +39,15 @@ struct ContentView: View {
                 }
 #endif
                 ToolbarItem {
+                    Button(action: {
+                        Task {
+                            await appData.logout()
+                        }
+                    }, label: {
+                        Text("User")
+                    })
+                }
+                ToolbarItem {
                     Button(action: addItem) {
                         Label("Add Item", systemImage: "plus")
                     }

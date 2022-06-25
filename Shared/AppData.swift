@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AppData: ObservableObject {
+@MainActor class AppData: ObservableObject {
     @Published var username: String?
     @Published var password: String?
     @Published var token: String?
@@ -62,7 +62,7 @@ class AppData: ObservableObject {
         }
     }
     
-    func getSessionToken() async {
+    func getSessionToken() async throws {
         let urlString = hostName+"/api/authenticate/new_session"
         let url = URL(string: urlString)!
         do {
@@ -100,14 +100,19 @@ class AppData: ObservableObject {
             }
             print(string ?? "nil")
         } catch {
-            print("error")
-            print(error)
+            if let urlError = error as? URLError {
+                print(urlError)
+                throw urlError
+            } else {
+                print(error)
+                throw error
+            }
         }
         
     }
-    func getMembers() async {
+    func getMembers() async throws {
         if token == nil {
-            await getSessionToken()
+            try await getSessionToken()
         }
         let ourlString = hostName+"/api/members"
         let ourl = URL(string: ourlString)!
@@ -130,9 +135,13 @@ class AppData: ObservableObject {
 //            })
             print(string ?? "nil")
         } catch {
-            print("error")
-            print(error)
-            print(#filePath+" "+"\(#line)")
+            if let urlError = error as? URLError {
+                print(urlError)
+                throw urlError
+            } else {
+                print(error)
+                throw error
+            }
         }
     }
     struct NewMember: Codable {
@@ -160,9 +169,9 @@ class AppData: ObservableObject {
     }
     func addMember(member: NewMember) async throws {
         print("addingToken")
-        if token == nil {
-            await getSessionToken()
-        }
+//        if token == nil {
+//            try await getSessionToken()
+//        }
         let ourlString = hostName+"/api/members"
         let ourl = URL(string: ourlString)!
         var req = URLRequest(url: ourl)
@@ -193,9 +202,9 @@ class AppData: ObservableObject {
     }
     func deleteMember(_ index: Int) async throws {
         print("deleting member")
-        if token == nil {
-            await getSessionToken()
-        }
+//        if token == nil {
+//            try await getSessionToken()
+//        }
         let ourlString = hostName+"/api/members"
         let ourl = URL(string: ourlString)!
         var req = URLRequest(url: ourl)
@@ -224,5 +233,8 @@ class AppData: ObservableObject {
         }
         print(string ?? "nil")
 //        } catch (URLError.)
+    }
+    func logout() async throws {
+        
     }
 }
