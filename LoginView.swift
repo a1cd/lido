@@ -11,10 +11,51 @@ struct LoginView: View {
     @EnvironmentObject var appData: AppData
     @State var username: String = ""
     @State var password: String = ""
-    @Binding var loggedOut: Bool
-    @State var error: String?
+    @State var errorDescription: String?
     @State var errorOccured: Bool = false
     @State var progress: Double? = nil
+    func reset(_ all: Bool = false) {
+        errorDescription = nil
+        errorOccured = false
+        progress = nil
+        if all {
+            username = ""
+            password = ""
+        }
+    }
+    func submit(_ button: Bool) {
+        var isMacOS = false
+        if #available(macOS 8, *) {
+            isMacOS = true
+        }
+        
+        if button || isMacOS {
+            appData.username = username
+            appData.password = password
+            Task {
+                
+                do {
+                    progress = 0.0
+                    try await appData.getSessionToken()
+                    progress = 0.333
+                    try await appData.getMembers()
+                    progress = 0.666
+                    await appData.setupWebsocket()
+                    progress = 1.0
+                    appData.loggedOut = false
+                } catch AppData.CommunicationError.unauthenticated {
+                    appData.loggedOut = true
+                } catch let error as AppData.CommunicationError {
+                    errorDescription = error.description
+                    errorOccured = true
+                } catch {
+                    errorOccured = true
+                    self.errorDescription = error.localizedDescription
+                }
+                
+            }
+        }
+    }
     var body: some View {
         ZStack {
             VStack {
@@ -22,40 +63,38 @@ struct LoginView: View {
                     .font(.largeTitle)
                 TextField("Username", text: $username)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-                SecureField("Password", text: $password)
+                    .autocorrectionDisabled(true)
+                #if os(iOS)
+                    .autocapitalization(.none)
+                #endif
+                SecureField("Password", text: $password) {
+                    submit(false)
+                }
+                    .submitLabel(SubmitLabel.return)
+                    .autocorrectionDisabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
-                    appData.username = username
-                    appData.password = password
-                    Task {
-                        do {
-                            progress = 0.0
-                            try await appData.getSessionToken()
-                            progress = 0.333
-                            try await appData.getMembers()
-                            progress = 0.666
-                            await appData.setupWebsocket()
-                            progress = 1.0
-                            loggedOut = false
-                        } catch {
-                            errorOccured = true
-                            self.error = error.localizedDescription
-                        }
-                        
-                    }
+                    submit(true)
                 }, label: {Text("Login")})
                 .buttonStyle(.borderedProminent)
-                
             }
+            .onAppear(perform: {
+                print(String.init(data: try! JSONEncoder().encode(Member.Location.unknown), encoding: .utf8)!)
+                print("marker")
+            })
+            .disabled(progress != nil)
             .padding(.all)
             .scaledToFill()
             .alert(isPresented: $errorOccured, content: {
                 Alert(
                     title: Text("Error"),
-                    message: Text(error ?? ""),
+                    message: Text(errorDescription ?? ""),
                     dismissButton: .cancel(
                         Text("Dismiss"),
-                        action: {errorOccured = false}
+                        action: {
+                            errorOccured = false
+                            reset()
+                        }
                     )
                 )
             })
@@ -69,6 +108,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(loggedOut: .constant(true))
+        LoginView()
     }
 }

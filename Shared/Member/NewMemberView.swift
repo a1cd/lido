@@ -15,6 +15,7 @@ struct NewMemberView: View {
     @State var counsoleor = false
     @State var submit: () -> Void
     @State var alert: Bool = false
+    @State var alertText: String = ""
     
     var number: NumberFormatter {
         let number = NumberFormatter()
@@ -35,24 +36,28 @@ struct NewMemberView: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.title)
                 Stepper(value: $age, in: 0...100) {
-                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Label@*/Text("Stepper")/*@END_MENU_TOKEN@*/
+                    Text("Age: \(age)")
                 }
                 Toggle("Aftercare", isOn: $aftercare)
                 Toggle("Counsoleor", isOn: $counsoleor)
                 Button(action: {
-                    print("hi1")
                     Task {
-                        print("hi2")
-                        try await self.appData.addMember(
-                            member: AppData.NewMember(
-                                first: name.givenName?.capitalized,
-                                middleInitial: name.middleName?.first?.uppercased(),
-                                last: name.familyName?.capitalized,
-                                age: age,
-                                aftercare: aftercare,
-                                isCounsoleor: counsoleor
+                        do {
+                            try await self.appData.addMember(
+                                member: AppData.NewMember(
+                                    first: name.givenName?.capitalized,
+                                    middleInitial: name.middleName?.first?.uppercased(),
+                                    last: name.familyName?.capitalized,
+                                    age: age,
+                                    aftercare: aftercare,
+                                    isCounsoleor: counsoleor
+                                )
                             )
-                        )
+                        } catch {
+                            
+                            alert = true
+                            alertText = error.localizedDescription
+                        }
                         submit()
                     }
                 }, label: {
@@ -61,9 +66,9 @@ struct NewMemberView: View {
             }
         }
         .padding()
-//        .alert(isPresented: self.$alert, content: {
-////            Alert(title: "Error")
-//        })
+        .alert(isPresented: self.$alert, content: {
+            Alert(title: Text("An Error Occured"),message: Text(alertText))
+        })
     }
 }
 

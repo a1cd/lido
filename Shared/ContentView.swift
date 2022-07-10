@@ -15,77 +15,45 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-
+    
     @StateObject var appData = AppData()
-	@State private var creatingUser = false
-    @State private var loggedOut = true
+    @State var creatingMember = false
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(appData.members.list,id: \._id) { (member) in
-                    NavigationLink {
-                        MemberView(member: member)
-                    } label: {
-                        Text("\(member.first ?? "") \(member.last ?? "")")
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        Group {
+            Group {
+#if os(iOS)
+                iOS()
+#elseif os(macOS)
+                MacOS()
+#else
+                EmptyView()
+#endif
             }
             .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                Button {
+                    creatingMember = true
+                } label: {
+                    Label("Add", systemImage: "plus")
                 }
-#endif
-                ToolbarItem {
-                    Button(action: {
-                        Task {
-                            await appData.logout()
+                Button {
+                    Task {
+                        do {
+                            try await appData.reload()
+                        } catch let error as AppData.CommunicationError {
+                            print(error)
                         }
-                    }, label: {
-                        Text("User")
-                    })
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
                     }
+                } label: {
+                    Label("Reload", systemImage: "arrow.clockwise")
                 }
+
             }
-            Text("Select an item")
-        }
-        .sheet(isPresented: $loggedOut, content: {
-            LoginView(loggedOut: $loggedOut)
-        })
-        .sheet(isPresented: $creatingUser) {
-            NewMemberView(submit: {creatingUser.toggle()})
-        }
-        .environmentObject(appData)
-    }
-
-    private func addItem() {
-        withAnimation {
-            self.creatingUser = true
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            print(offsets)
-            offsets.forEach( {i in
-                print(i)
-                Task {
-                    do {
-                        try await appData.deleteMember(i)
-                    } catch {
-                        print("deleted problem")
-                        print(error)
-                        print(#filePath+" "+"\(#line)")
-                    }
-                }
+            .sheet(isPresented: $creatingMember, content: {
+                NewMemberView(submit: {creatingMember  = false})
             })
         }
+        .environmentObject(appData)
     }
 }
 

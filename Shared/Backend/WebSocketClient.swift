@@ -20,7 +20,7 @@ final class WebSocketClient: NSObject {
         // no-op
     }
     
-    func subscribeToService(with completion: @escaping @MainActor (Data?) -> ()) {
+    @MainActor func subscribeToService(with completion: @escaping @MainActor (Data?) -> ()) {
         if !opened {
             openWebSocket()
         }
