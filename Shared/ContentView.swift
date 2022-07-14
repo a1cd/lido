@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import UserNotifications
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -16,8 +17,9 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
-    @StateObject var appData = AppData()
     @State var creatingMember = false
+    @EnvironmentObject var appData: AppData
+    @EnvironmentObject var appDelegate: LidoAppDelegate
     
     var body: some View {
         Group {
@@ -30,30 +32,32 @@ struct ContentView: View {
                 EmptyView()
 #endif
             }
-            .toolbar {
-                Button {
-                    creatingMember = true
-                } label: {
-                    Label("Add", systemImage: "plus")
-                }
-                Button {
-                    Task {
-                        do {
-                            try await appData.reload()
-                        } catch let error as AppData.CommunicationError {
-                            print(error)
-                        }
-                    }
-                } label: {
-                    Label("Reload", systemImage: "arrow.clockwise")
-                }
-
-            }
-            .sheet(isPresented: $creatingMember, content: {
-                NewMemberView(submit: {creatingMember  = false})
-            })
         }
-        .environmentObject(appData)
+        .onChange(of: appDelegate.deviceNotificationToken, perform: {token in
+            if let token = token {
+                Task {
+                    await appData.setNotificationToken(token: token)
+                }
+            } else {
+                appData.notificationTokenState = .noToken
+            }
+        })
+        .task {
+            #if os(macOS)
+            NSApplication.shared.registerForRemoteNotifications()
+            #else
+            UIApplication.shared.registerForRemoteNotifications()
+            #endif
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                
+                if let error = error {
+                    print(error)
+                }
+                print(granted)
+                // Enable or disable features based on the authorization.
+            }
+        }
     }
 }
 
@@ -66,6 +70,7 @@ private let itemFormatter: DateFormatter = {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

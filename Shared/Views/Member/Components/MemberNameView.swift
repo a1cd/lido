@@ -16,8 +16,8 @@ struct MemberNameView: View {
             VStack {
                 Text(member.personName.formatted(.name(style: .medium)))
                 HStack {
-                    Image(systemName: member.status?.symbol ?? Member.Location.unknown.symbol)
-                    Image(systemName: member.location?.symbol ?? Member.Location.unknown.symbol)
+                    Image(systemName: member.status.symbol )
+                    Image(systemName: member.location.symbol )
                 }
             }
         }

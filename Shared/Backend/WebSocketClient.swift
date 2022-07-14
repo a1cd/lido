@@ -21,7 +21,7 @@ final class WebSocketClient: NSObject {
     }
     
     @MainActor func subscribeToService(with completion: @escaping @MainActor (Data?) -> ()) {
-        if !opened {
+        if !opened || (webSocket?.closeCode != .invalid) {
             openWebSocket()
         }
         
@@ -37,8 +37,10 @@ final class WebSocketClient: NSObject {
             print("anything received")
             
             switch result {
-            case .failure:
+            case .failure(let error):
+                webSocket.cancel(with: URLSessionWebSocketTask.CloseCode.protocolError, reason: error.localizedDescription.data(using: .utf8))
                 completion(nil)
+                return
             case .success(let webSocketTaskMessage):
                 switch webSocketTaskMessage {
                 case .string(let string):

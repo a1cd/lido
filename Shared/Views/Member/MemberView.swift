@@ -12,6 +12,7 @@ struct MemberView: View {
     @Binding var member: Member
     @State var location: Member.Location = .unknown
     @State var status: Member.Status = .unknown
+    @State var startChange: Bool = true
     var body: some View {
         VStack {
             MemberNameView(member: $member)
@@ -37,14 +38,32 @@ struct MemberView: View {
             location = member.location ?? .unknown
             status = member.status ?? .unknown
         }
+        .onChange(of: member, perform: {_ in
+            if location != member.location {
+                startChange = true
+                location = member.location ?? .unknown
+            }
+            if status != member.status {
+                startChange = true
+                status = member.status ?? .unknown
+            }
+        })
         .onChange(of: location, perform: {_ in
-            Task {
-                try await appData.setStatus(member._id, status, location)
+            if !startChange {
+                Task {
+                    try await appData.setStatus(member._id, status, location)
+                }
+            } else {
+                startChange = false
             }
         })
         .onChange(of: status, perform: {_ in
-            Task {
-                try await appData.setStatus(member._id, status, location)
+            if !startChange {
+                Task {
+                    try await appData.setStatus(member._id, status, location)
+                }
+            } else {
+                startChange = false
             }
         })
     }

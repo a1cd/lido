@@ -64,24 +64,20 @@ struct LoginView: View {
                 TextField("Username", text: $username)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocorrectionDisabled(true)
+                    .textContentType(.username)
                 #if os(iOS)
                     .autocapitalization(.none)
                 #endif
-                SecureField("Password", text: $password) {
-                    submit(false)
-                }
+                SecureField("Password", text: $password)
                     .submitLabel(SubmitLabel.return)
                     .autocorrectionDisabled(true)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textContentType(.password)
                 Button(action: {
                     submit(true)
                 }, label: {Text("Login")})
                 .buttonStyle(.borderedProminent)
             }
-            .onAppear(perform: {
-                print(String.init(data: try! JSONEncoder().encode(Member.Location.unknown), encoding: .utf8)!)
-                print("marker")
-            })
             .disabled(progress != nil)
             .padding(.all)
             .scaledToFill()
@@ -91,10 +87,7 @@ struct LoginView: View {
                     message: Text(errorDescription ?? ""),
                     dismissButton: .cancel(
                         Text("Dismiss"),
-                        action: {
-                            errorOccured = false
-                            reset()
-                        }
+                        action: {reset()}
                     )
                 )
             })

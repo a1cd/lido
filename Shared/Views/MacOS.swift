@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MacOS: View {
     @EnvironmentObject var appData: AppData
+    
+    @State var creatingMember: Bool = false
     var body: some View {
         Group {
             NavigationView {
@@ -22,7 +24,7 @@ struct MacOS: View {
                         )
                     }
                     NavigationLink {
-                        Text("Hello")
+                        CarpoolView()
                     } label: {
                         Label(
                             "Carpool",
@@ -40,9 +42,11 @@ struct MacOS: View {
                     Section("Browse") {
                         BrowseView()
                             .padding(.leading)
+                        
                     }
                     NavigationLink {
-                        Text("Hello")
+                        ProfileView()
+                            .navigationTitle("Profile")
                     } label: {
                         Label(
                             "Profile",
@@ -53,10 +57,27 @@ struct MacOS: View {
                 .listStyle(.sidebar)
             }
             .toolbar {
-                ToolbarItem(content: {
-                    Label("Add",systemImage: "plus")
-                })
+                Button {
+                    creatingMember = true
+                } label: {
+                    Label("Add", systemImage: "plus")
+                }
+                Button {
+                    Task {
+                        do {
+                            try await appData.reload()
+                        } catch let error as AppData.CommunicationError {
+                            print(error)
+                        }
+                    }
+                } label: {
+                    Label("Reload", systemImage: "arrow.clockwise")
+                }
+
             }
+            .sheet(isPresented: $creatingMember, content: {
+                NewMemberView(submit: {creatingMember  = false})
+            })
         }
         .sheet(isPresented: $appData.loggedOut, content: {
             LoginView()

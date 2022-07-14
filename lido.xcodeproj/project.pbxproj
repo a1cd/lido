@@ -19,6 +19,10 @@
 		B8403C7428778090007244B5 /* MemberNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8403C7228778090007244B5 /* MemberNameView.swift */; };
 		B85755B72867CB07000E2BD8 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85755B62867CB07000E2BD8 /* BrowseView.swift */; };
 		B85755B82867CB07000E2BD8 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85755B62867CB07000E2BD8 /* BrowseView.swift */; };
+		B89F5AED287C63A80059755B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89F5AEC287C63A80059755B /* ProfileView.swift */; };
+		B89F5AEE287C63A80059755B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89F5AEC287C63A80059755B /* ProfileView.swift */; };
+		B89F5AF1287C98E60059755B /* MacAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89F5AEF287C98E60059755B /* MacAppDelegate.swift */; };
+		B89FF61B287E418C00CDB022 /* iOSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89FF61A287E418C00CDB022 /* iOSAppDelegate.swift */; };
 		B8ACCCD8286F35F500AB15BE /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD6286F35F500AB15BE /* MacOS.swift */; };
 		B8ACCCDA286F39BC00AB15BE /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD9286F39BC00AB15BE /* iOS.swift */; };
 		B8BF03C0286CD98B0006602C /* MemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BF03BF286CD98A0006602C /* MemberListView.swift */; };
@@ -27,6 +31,7 @@
 		B8C481922862B78B004E9014 /* MemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C481902862B78B004E9014 /* MemberView.swift */; };
 		B8C481942862C013004E9014 /* NewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C481932862C013004E9014 /* NewMemberView.swift */; };
 		B8C481952862C013004E9014 /* NewMemberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C481932862C013004E9014 /* NewMemberView.swift */; };
+		B8CCD698288070490011FB6E /* MemberTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8CCD697288070490011FB6E /* MemberTableView.swift */; };
 		B8DBADAD28629226009C4E0B /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DBADAC28629226009C4E0B /* Member.swift */; };
 		B8DBADAE28629226009C4E0B /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8DBADAC28629226009C4E0B /* Member.swift */; };
 		B8E714A42851493500E13F0F /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E714A32851493500E13F0F /* Tests_iOS.swift */; };
@@ -43,9 +48,12 @@
 		B8E714BA2851493500E13F0F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E7148C2851493100E13F0F /* Persistence.swift */; };
 		B8E714BB2851493500E13F0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E7148D2851493400E13F0F /* Assets.xcassets */; };
 		B8E714BC2851493500E13F0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E7148D2851493400E13F0F /* Assets.xcassets */; };
-		B8E714CF2852250100E13F0F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8E714CE2852250100E13F0F /* HealthKit.framework */; };
 		B8ED0FFC286E2266002EFEB6 /* MemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED0FFB286E2266002EFEB6 /* MemberLabel.swift */; };
 		B8ED0FFD286E2266002EFEB6 /* MemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED0FFB286E2266002EFEB6 /* MemberLabel.swift */; };
+		B8FCE17F287E5BD100BEF833 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD6286F35F500AB15BE /* MacOS.swift */; };
+		B8FCE180287E5BD200BEF833 /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD9286F39BC00AB15BE /* iOS.swift */; };
+		B8FCE182287E5BFF00BEF833 /* CarpoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */; };
+		B8FCE183287E5BFF00BEF833 /* CarpoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,16 +75,20 @@
 
 /* Begin PBXFileReference section */
 		B81C98602866072C00793B33 /* WebSocketClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketClient.swift; sourceTree = "<group>"; };
-		B81C98632866CE4800793B33 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = SOURCE_ROOT; };
+		B81C98632866CE4800793B33 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginView.swift; path = Shared/Views/LoginView.swift; sourceTree = SOURCE_ROOT; };
 		B8239C77286235ED00EB8937 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		B8239C8128627AB900EB8937 /* Endpoints.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Endpoints.strings; sourceTree = "<group>"; };
 		B8403C7228778090007244B5 /* MemberNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberNameView.swift; sourceTree = "<group>"; };
 		B85755B62867CB07000E2BD8 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		B89F5AEC287C63A80059755B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		B89F5AEF287C98E60059755B /* MacAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAppDelegate.swift; sourceTree = "<group>"; };
+		B89FF61A287E418C00CDB022 /* iOSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSAppDelegate.swift; sourceTree = "<group>"; };
 		B8ACCCD6286F35F500AB15BE /* MacOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOS.swift; sourceTree = "<group>"; };
 		B8ACCCD9286F39BC00AB15BE /* iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS.swift; sourceTree = "<group>"; };
 		B8BF03BF286CD98A0006602C /* MemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListView.swift; sourceTree = "<group>"; };
 		B8C481902862B78B004E9014 /* MemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberView.swift; sourceTree = "<group>"; };
 		B8C481932862C013004E9014 /* NewMemberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMemberView.swift; sourceTree = "<group>"; };
+		B8CCD697288070490011FB6E /* MemberTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableView.swift; sourceTree = "<group>"; };
 		B8DBADAC28629226009C4E0B /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		B8E714892851493100E13F0F /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		B8E7148A2851493100E13F0F /* lidoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lidoApp.swift; sourceTree = "<group>"; };
@@ -96,6 +108,7 @@
 		B8E714CC2852250100E13F0F /* lido (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "lido (iOS).entitlements"; sourceTree = "<group>"; };
 		B8E714CE2852250100E13F0F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		B8ED0FFB286E2266002EFEB6 /* MemberLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberLabel.swift; sourceTree = "<group>"; };
+		B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarpoolView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +116,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8E714CF2852250100E13F0F /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BF03BF286CD98A0006602C /* MemberListView.swift */,
+				B8CCD697288070490011FB6E /* MemberTableView.swift */,
 				B8C481932862C013004E9014 /* NewMemberView.swift */,
 				B8C481902862B78B004E9014 /* MemberView.swift */,
 				B8403C79287781B5007244B5 /* Components */,
@@ -178,15 +191,13 @@
 		B8E714872851493100E13F0F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				B81C98632866CE4800793B33 /* LoginView.swift */,
 				B8ACCCD4286F35AF00AB15BE /* Backend */,
 				B8E7148A2851493100E13F0F /* lidoApp.swift */,
+				B89FF61A287E418C00CDB022 /* iOSAppDelegate.swift */,
+				B89F5AEF287C98E60059755B /* MacAppDelegate.swift */,
 				B8239C8128627AB900EB8937 /* Endpoints.strings */,
-				B85755B62867CB07000E2BD8 /* BrowseView.swift */,
-				B8ACCCD3286F359C00AB15BE /* Member */,
 				B8E7148B2851493100E13F0F /* ContentView.swift */,
-				B8ACCCD6286F35F500AB15BE /* MacOS.swift */,
-				B8ACCCD9286F39BC00AB15BE /* iOS.swift */,
+				B8FCE17E287E5BC600BEF833 /* Views */,
 				B8E7148C2851493100E13F0F /* Persistence.swift */,
 				B8E7148D2851493400E13F0F /* Assets.xcassets */,
 				B8E714882851493100E13F0F /* lido.xcdatamodeld */,
@@ -237,6 +248,20 @@
 				B8E714CE2852250100E13F0F /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8FCE17E287E5BC600BEF833 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8ACCCD3286F359C00AB15BE /* Member */,
+				B81C98632866CE4800793B33 /* LoginView.swift */,
+				B85755B62867CB07000E2BD8 /* BrowseView.swift */,
+				B8ACCCD9286F39BC00AB15BE /* iOS.swift */,
+				B8ACCCD6286F35F500AB15BE /* MacOS.swift */,
+				B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */,
+				B89F5AEC287C63A80059755B /* ProfileView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,11 +431,15 @@
 				B8403C7328778090007244B5 /* MemberNameView.swift in Sources */,
 				B8C481942862C013004E9014 /* NewMemberView.swift in Sources */,
 				B8239C78286235ED00EB8937 /* AppData.swift in Sources */,
+				B8FCE17F287E5BD100BEF833 /* MacOS.swift in Sources */,
+				B8FCE182287E5BFF00BEF833 /* CarpoolView.swift in Sources */,
 				B8ED0FFC286E2266002EFEB6 /* MemberLabel.swift in Sources */,
+				B89F5AED287C63A80059755B /* ProfileView.swift in Sources */,
 				B8ACCCDA286F39BC00AB15BE /* iOS.swift in Sources */,
 				B8BF03C0286CD98B0006602C /* MemberListView.swift in Sources */,
 				B81C98622866073300793B33 /* WebSocketClient.swift in Sources */,
 				B8E714B92851493500E13F0F /* Persistence.swift in Sources */,
+				B89FF61B287E418C00CDB022 /* iOSAppDelegate.swift in Sources */,
 				B8E714B52851493500E13F0F /* lidoApp.swift in Sources */,
 				B81C98642866CE4900793B33 /* LoginView.swift in Sources */,
 				B8E714B72851493500E13F0F /* ContentView.swift in Sources */,
@@ -429,12 +458,17 @@
 				B8C481922862B78B004E9014 /* MemberView.swift in Sources */,
 				B8C481952862C013004E9014 /* NewMemberView.swift in Sources */,
 				B8239C79286235ED00EB8937 /* AppData.swift in Sources */,
+				B8FCE183287E5BFF00BEF833 /* CarpoolView.swift in Sources */,
+				B89F5AEE287C63A80059755B /* ProfileView.swift in Sources */,
 				B8ED0FFD286E2266002EFEB6 /* MemberLabel.swift in Sources */,
 				B8BF03C1286CD98B0006602C /* MemberListView.swift in Sources */,
 				B81C98612866073300793B33 /* WebSocketClient.swift in Sources */,
 				B8E714BA2851493500E13F0F /* Persistence.swift in Sources */,
 				B8E714B62851493500E13F0F /* lidoApp.swift in Sources */,
+				B8CCD698288070490011FB6E /* MemberTableView.swift in Sources */,
 				B81C98652866CE4900793B33 /* LoginView.swift in Sources */,
+				B8FCE180287E5BD200BEF833 /* iOS.swift in Sources */,
+				B89F5AF1287C98E60059755B /* MacAppDelegate.swift in Sources */,
 				B8E714B82851493500E13F0F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -598,12 +632,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "lido--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Lido;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -633,12 +669,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "lido--iOS--Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Lido;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -673,6 +711,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Lido;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -704,6 +744,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Lido;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

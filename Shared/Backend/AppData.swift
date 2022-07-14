@@ -14,6 +14,13 @@ import SwiftUI
     @Published var token: String?
     @Published var members = MemberCollection(array: [])
     @Published var loggedOut = true
+    var notificationTokenState = NotificationTokenState.noToken
+    
+    enum NotificationTokenState {
+        case noToken
+        case hasToken(Data)
+        case declined
+    }
     
     private let hostName = "http://192.168.1.23:3000"
     private let socketName = "ws://192.168.1.23:4000"
@@ -22,6 +29,40 @@ import SwiftUI
     
     func reload() async throws {
         try await self.getMembers()
+    }
+    
+    func setNotificationToken(token: Data) async {
+        notificationTokenState = .hasToken(token)
+        if !loggedOut {
+            do {
+                try await sendNotificationToken()
+            } catch {
+                fatalError()
+            }
+        }
+    }
+    
+    func sendNotificationToken() async throws {
+        switch notificationTokenState {
+        case .noToken:
+            return
+        case .declined:
+            return
+        case let .hasToken(data):
+            let urlString = hostName+"/api/authenticate/add_device_notification_token"
+            let url = URL(string: urlString)!
+            var req = URLRequest(url: url)
+            let body: [String: String] = ["deviceNotificationToken": data.hexEncodedString()]
+            let finalBody = try? JSONSerialization.data(withJSONObject: body)
+            req.httpMethod = "POST"
+            req.httpBody = finalBody
+            req.httpShouldHandleCookies = true
+            URLSession.shared.configuration.httpShouldSetCookies = true
+            req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            req.addValue("application/json", forHTTPHeaderField: "Accept")
+            let (_, response) = try await URLSession.shared.data(for: req)
+            try handleStatus(response)
+        }
     }
     
     func setupWebsocket() async {
@@ -43,30 +84,37 @@ import SwiftUI
         var deletedMembers: MemberCollection?
     }
     
-    func receivedData(_ data: Data?) {
+    @MainActor func receivedData(_ data: Data?) {
         print("receivedCallback called at " + #function)
-        print(data)
+        print(data as Any)
         guard (data != nil) else {return}
         do {
             let message = try JSONDecoder().decode(WebsocketMessage.self, from: data!)
             print(message)
-            if message.changedMembers != nil {
-                for member in message.changedMembers!.list {
-                    if let memberId = members.getMember(with: member._id) {
-                        members.list[memberId] = member
-                    } else {
-                        members.list.append(member)
+            DispatchQueue.main.async {
+                if message.changedMembers != nil {
+                    for member in message.changedMembers!.list {
+                        withAnimation {
+                            if let memberId = self.members.getMember(with: member._id) {
+                                self.members.list[memberId] = member
+                            } else {
+                                self.members.list.append(member)
+                            }
+                        }
                     }
-                    
                 }
-            }
-            if message.newMembers != nil {
-                members.list.append(contentsOf: message.newMembers!.list)
-            }
-            if message.deletedMembers != nil {
-                for member in message.deletedMembers!.list {
-                    guard let deleteIndex = members.getMember(with: member._id) else { continue }
-                    members.list.remove(at: deleteIndex)
+                if message.newMembers != nil {
+                    withAnimation {
+                        self.members.list.append(contentsOf: message.newMembers!.list)
+                    }
+                }
+                if message.deletedMembers != nil {
+                    withAnimation {
+                        for member in message.deletedMembers!.list {
+                            guard let deleteIndex = self.members.getMember(with: member._id) else { continue }
+                            self.members.list.remove(at: deleteIndex)
+                        }
+                    }
                 }
             }
         } catch {
@@ -136,10 +184,12 @@ import SwiftUI
                 }
             }
             if (!(foundUsername && foundToken)) {
-                print(string)
+                print(string as Any)
                 print("not found")
                 print("username: "+(username ?? "nil"))
                 print("token: "+(token ?? "nil"))
+            } else {
+                password = nil
             }
             print(string ?? "nil")
         } catch {
@@ -151,12 +201,10 @@ import SwiftUI
                 throw error
             }
         }
+        try await sendNotificationToken()
         
     }
     func getMembers() async throws {
-        if token == nil {
-            try await getSessionToken()
-        }
         print("fetchingMembers")
         let ourlString = hostName+"/api/members"
         let ourl = URL(string: ourlString)!
@@ -198,12 +246,12 @@ import SwiftUI
         var isCounsoleor: Bool
         var dict: [String: Any] {
             return [
-                "first": first,
-                "middleInitial": middleInitial,
-                "last": last,
-                "age": age,
-                "aftercare": aftercare,
-                "isCounsoleor": isCounsoleor
+                "first": first as Any,
+                "middleInitial": middleInitial as Any,
+                "last": last as Any,
+                "age": age as Any,
+                "aftercare": aftercare as Any,
+                "isCounsoleor": isCounsoleor as Any
             ]
         }
     }
@@ -293,12 +341,24 @@ import SwiftUI
         req.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         req.addValue("application/json", forHTTPHeaderField: "Accept")
-        let (data, response) = try await URLSession.shared.data(for: req)
+        let (_, response) = try await URLSession.shared.data(for: req)
         try handleStatus(response)
         members.list[members.getMember(with: id)!].status = status
         members.list[members.getMember(with: id)!].location = location
     }
     func logout() async throws {
         
+    }
+}
+
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return self.map { String(format: format, $0) }.joined()
     }
 }
