@@ -18,9 +18,9 @@ struct MemberView: View {
             MemberNameView(member: $member)
             HStack {
                 Text("Age: ")
-                Text("\(member.age ?? 0)")
+                Text("\(member.age )")
             }
-            Text("\(member.personName.formatted(.name(style: .short))) was last reported \((member.status ?? Member.Status.unknown).description) \((member.location ?? Member.Location.unknown).description).")
+            Text("\(member.personName.formatted(.name(style: .short))) was last reported \((member.status ).description) \((member.location ).description).")
             HStack {
                 Picker(selection: $status, label: Text("Status").hidden()) {
                     ForEach(Member.Status.allCases) {status in
@@ -35,17 +35,17 @@ struct MemberView: View {
             }
         }
         .task {
-            location = member.location ?? .unknown
-            status = member.status ?? .unknown
+            location = member.location
+            status = member.status
         }
         .onChange(of: member, perform: {_ in
             if location != member.location {
                 startChange = true
-                location = member.location ?? .unknown
+                location = member.location
             }
             if status != member.status {
                 startChange = true
-                status = member.status ?? .unknown
+                status = member.status
             }
         })
         .onChange(of: location, perform: {_ in

@@ -13,10 +13,8 @@ struct BrowseView: View {
             NavigationLink(
                 destination: {
                     #if os(macOS)
-                    NavigationView {
-                        MemberListView()
-                    }
-                    .navigationTitle("Members")
+                    MemberTableView()
+                        .navigationTitle("Members")
                     #else
                     MemberListView()
                         .navigationTitle("Members")

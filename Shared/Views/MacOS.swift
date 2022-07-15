@@ -56,24 +56,20 @@ struct MacOS: View {
                 }
                 .listStyle(.sidebar)
             }
-            .toolbar {
-                Button {
-                    creatingMember = true
-                } label: {
-                    Label("Add", systemImage: "plus")
-                }
-                Button {
-                    Task {
-                        do {
-                            try await appData.reload()
-                        } catch let error as AppData.CommunicationError {
-                            print(error)
+            .toolbar(id: "MacOSToolbar") {
+                ToolbarItem(id: "reload", placement: .navigation) {
+                    Button {
+                        Task {
+                            do {
+                                try await appData.reload()
+                            } catch let error as AppData.CommunicationError {
+                                print(error)
+                            }
                         }
+                    } label: {
+                        Label("Reload", systemImage: "arrow.clockwise")
                     }
-                } label: {
-                    Label("Reload", systemImage: "arrow.clockwise")
                 }
-
             }
             .sheet(isPresented: $creatingMember, content: {
                 NewMemberView(submit: {creatingMember  = false})

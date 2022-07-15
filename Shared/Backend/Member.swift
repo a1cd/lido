@@ -6,12 +6,33 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Member: Codable, Identifiable, Equatable, Hashable {
+    static func == (lhs: Member, rhs: Member) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(_id)
+        hasher.combine(dateAdded)
+        hasher.combine(dateChanged)
+        hasher.combine(first)
+        hasher.combine(middleInitial)
+        hasher.combine(last)
+        hasher.combine(age)
+        hasher.combine(aftercare)
+        hasher.combine(isCounsoleor)
+        hasher.combine(memberSubscriptions)
+        hasher.combine(sendTo)
+        hasher.combine(location)
+        hasher.combine(status)
+    }
+    
     var id: String {
         return _id
     }
-    init(_id: String? = nil, dateAdded: Int? = nil, dateChanged: Int? = nil, first: String? = nil, middleInitial: String? = nil, last: String? = nil, age: Int? = nil, aftercare: Bool? = nil, isCounsoleor: Bool? = nil, memberSubscriptions: [String]? = nil, sendTo: Location? = nil, location: Location? = nil, status: Status? = nil) {
+    init(_id: String? = nil, dateAdded: Int? = nil, dateChanged: Int? = nil, first: String? = nil, middleInitial: String? = nil, last: String? = nil, age: Int? = nil, aftercare: Bool? = nil, isCounsoleor: Bool? = nil, memberSubscriptions: [String]? = nil, sendTo: Location? = nil, location: Location? = nil, status: Status? = nil, deleted: Bool = false) {
         self._id = _id ?? ""
         self.dateAdded = dateAdded ?? 0
         self.dateChanged = dateChanged ?? 0
@@ -25,6 +46,7 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         self.sendTo = sendTo ?? .unknown
         self.location = location ?? .unknown
         self.status = status ?? .unknown
+        self.deleted = deleted
     }
     static let test = Member(
         _id: "[ID garbage]",
@@ -41,6 +63,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         location: Location.afternoonOption,
         status: Status.at
     )
+    var appData: AppData?
+    
     var _id: String
     var dateAdded: Int
     var dateChanged: Int
@@ -54,7 +78,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
     var sendTo: Location
     var location: Location
     var status: Status
-    var deleted: Bool = false
+    var deleted: Bool
+    
     var personName: PersonNameComponents {
         return PersonNameComponents(
             givenName: first,
@@ -141,6 +166,10 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
             }
         }
         
+        var label: some View {
+            Label(description, systemImage: symbol)
+        }
+        
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             let rawValue = try container.decode(Int.self)
@@ -193,6 +222,9 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
                 return "packing up to"
             }
         }
+        var label: some View {
+            Label(description, systemImage: symbol)
+        }
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
             let rawValue = try container.decode(Int.self)
@@ -242,7 +274,6 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         self.location = try container.decodeIfPresent(Member.Location.self, forKey: Member.CodingKeys.location) ?? .unknown
         self.status = try container.decodeIfPresent(Member.Status.self, forKey: Member.CodingKeys.status) ?? .unknown
         self.deleted = try container.decodeIfPresent(Bool.self, forKey: Member.CodingKeys.deleted) ?? false
-        
     }
     
     func encode(to encoder: Encoder) throws {
@@ -274,8 +305,15 @@ struct MemberCollection: Codable {
             return list.debugDescription
         }
     }
-    func getMember(with id: String) -> Int? {
+    func getMemberIndex(with id: String) -> Int? {
         return list.firstIndex(where: {$0._id == id}) ?? nil
     }
-    
+    func getMember(with id: String) -> Member? {
+        guard let index = list.firstIndex(where: {$0._id == id}) else {return nil}
+        return list[index]
+    }
+    mutating func removeMember(with id: String) -> Member? {
+        guard let index = list.firstIndex(where: {$0._id == id}) else {return nil}
+        return list.remove(at: index)
+    }
 }

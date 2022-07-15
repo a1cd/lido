@@ -63,11 +63,6 @@ struct MemberListView: View {
                     }
                 }
 //            }
-//            .sheet(isPresented: $addingMember, content: {
-//                NewMemberView(submit: {
-//                    addingMember = false
-//                })
-//            })
         }
         .searchable(text: $search) {
             ForEach(appData.members.list.filter({ member in

@@ -10,7 +10,7 @@ import SwiftUI
 struct CarpoolView: View {
     @EnvironmentObject var appData: AppData
     var body: some View {
-        VSplitView {
+        VStack {
             Group {
                 
             }

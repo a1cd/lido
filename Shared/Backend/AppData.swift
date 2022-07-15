@@ -14,6 +14,7 @@ import SwiftUI
     @Published var token: String?
     @Published var members = MemberCollection(array: [])
     @Published var loggedOut = true
+    
     var notificationTokenState = NotificationTokenState.noToken
     
     enum NotificationTokenState {
@@ -95,7 +96,7 @@ import SwiftUI
                 if message.changedMembers != nil {
                     for member in message.changedMembers!.list {
                         withAnimation {
-                            if let memberId = self.members.getMember(with: member._id) {
+                            if let memberId = self.members.getMemberIndex(with: member._id) {
                                 self.members.list[memberId] = member
                             } else {
                                 self.members.list.append(member)
@@ -111,7 +112,7 @@ import SwiftUI
                 if message.deletedMembers != nil {
                     withAnimation {
                         for member in message.deletedMembers!.list {
-                            guard let deleteIndex = self.members.getMember(with: member._id) else { continue }
+                            guard let deleteIndex = self.members.getMemberIndex(with: member._id) else { continue }
                             self.members.list.remove(at: deleteIndex)
                         }
                     }
@@ -219,9 +220,16 @@ import SwiftUI
             let (data, response) = try await URLSession.shared.data(for: req)
             try handleStatus(response)
             let string = String.init(data: data, encoding: .utf8)
-            let members = try JSONDecoder().decode(MemberCollection.self, from: data)
+            var members = try JSONDecoder().decode(MemberCollection.self, from: data)
+            for i in 0..<members.list.count {
+                members.list[i].appData = self
+            }
             print(URLSession.shared.configuration.httpCookieStorage?.cookies?[1].value ?? "nil")
-            self.members = members
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.members = members
+                }
+            }
 //            self.members.list.sorted(by: { one, two in
 //                one._id > two._id
 //            })
@@ -312,17 +320,17 @@ import SwiftUI
         let string = String.init(data: data, encoding: .utf8)
         let decodedResponse = try JSONDecoder().decode(DeleteMemberResponse.self, from: data)
         if (decodedResponse.acknowledged) {
-            withAnimation(.default, {
-                members.list.remove(at: members.getMember(with: id)!)
-            })
+            withAnimation {
+                self.members.removeMember(with: id)
+            }
         }
         print(string ?? "nil")
 //        } catch (URLError.)
     }
     struct SetStatusRequest: Codable {
         var memberId: String
-        var statusId: Member.Status
-        var locationId: Member.Location
+        var statusId: Member.Status?
+        var locationId: Member.Location?
     }
     func setStatus(_ id: String, _ status: Member.Status, _ location: Member.Location) async throws {
         print("deleting member")
@@ -343,8 +351,29 @@ import SwiftUI
         req.addValue("application/json", forHTTPHeaderField: "Accept")
         let (_, response) = try await URLSession.shared.data(for: req)
         try handleStatus(response)
-        members.list[members.getMember(with: id)!].status = status
-        members.list[members.getMember(with: id)!].location = location
+        members.list[members.getMemberIndex(with: id)!].status = status
+        members.list[members.getMemberIndex(with: id)!].location = location
+    }
+    func sendMemberTo(_ id: String, _ location: Member.Location) async throws {
+        print("deleting member")
+//        if token == nil {
+//            try await getSessionToken()
+//        }
+        let ourlString = hostName+"/api/member_status/notify_change"
+        let ourl = URL(string: ourlString)!
+        var req = URLRequest(url: ourl)
+        //FIXME: handle url errors...
+//        do {
+        let body = SetStatusRequest(memberId: id, locationId: location)
+        let finalBody = try? JSONEncoder().encode(body)
+        req.httpMethod = "POST"
+        req.httpBody = finalBody
+        req.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.addValue("application/json", forHTTPHeaderField: "Accept")
+        let (_, response) = try await URLSession.shared.data(for: req)
+        try handleStatus(response)
+        members.list[members.getMemberIndex(with: id)!].sendTo = location
     }
     func logout() async throws {
         

@@ -50,7 +50,6 @@
 		B8E714BC2851493500E13F0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8E7148D2851493400E13F0F /* Assets.xcassets */; };
 		B8ED0FFC286E2266002EFEB6 /* MemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED0FFB286E2266002EFEB6 /* MemberLabel.swift */; };
 		B8ED0FFD286E2266002EFEB6 /* MemberLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ED0FFB286E2266002EFEB6 /* MemberLabel.swift */; };
-		B8FCE17F287E5BD100BEF833 /* MacOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD6286F35F500AB15BE /* MacOS.swift */; };
 		B8FCE180287E5BD200BEF833 /* iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ACCCD9286F39BC00AB15BE /* iOS.swift */; };
 		B8FCE182287E5BFF00BEF833 /* CarpoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */; };
 		B8FCE183287E5BFF00BEF833 /* CarpoolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FCE181287E5BFF00BEF833 /* CarpoolView.swift */; };
@@ -431,7 +430,6 @@
 				B8403C7328778090007244B5 /* MemberNameView.swift in Sources */,
 				B8C481942862C013004E9014 /* NewMemberView.swift in Sources */,
 				B8239C78286235ED00EB8937 /* AppData.swift in Sources */,
-				B8FCE17F287E5BD100BEF833 /* MacOS.swift in Sources */,
 				B8FCE182287E5BFF00BEF833 /* CarpoolView.swift in Sources */,
 				B8ED0FFC286E2266002EFEB6 /* MemberLabel.swift in Sources */,
 				B89F5AED287C63A80059755B /* ProfileView.swift in Sources */,
@@ -559,6 +557,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -613,6 +613,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -718,7 +720,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nopermissionrequired.lido;
 				PRODUCT_NAME = lido;
@@ -751,7 +753,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nopermissionrequired.lido;
 				PRODUCT_NAME = lido;

@@ -42,7 +42,7 @@ struct iOS: View {
                     List {
                         BrowseView()
                     }
-                    .toolbar {
+                    .toolbar(id: "iosToolbar") {
                         ToolbarItem(id: "Add", placement: .primaryAction) {
                             Button {
                                 creatingMember = true
