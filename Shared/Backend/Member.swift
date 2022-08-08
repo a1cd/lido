@@ -8,10 +8,11 @@
 import Foundation
 import SwiftUI
 
-struct Member: Codable, Identifiable, Equatable, Hashable {
-    static func == (lhs: Member, rhs: Member) -> Bool {
-        lhs.hashValue == rhs.hashValue
+struct Member: Codable, Identifiable, Hashable, Equatable, Comparable {
+    static func < (lhs: Member, rhs: Member) -> Bool {
+        return (lhs.fullName+lhs._id) < (rhs.fullName+rhs._id)
     }
+    
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(_id)
@@ -23,7 +24,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         hasher.combine(age)
         hasher.combine(aftercare)
         hasher.combine(isCounsoleor)
-        hasher.combine(memberSubscriptions)
+        hasher.combine(subscribers)
+        hasher.combine(subscriptions)
         hasher.combine(sendTo)
         hasher.combine(location)
         hasher.combine(status)
@@ -32,7 +34,7 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
     var id: String {
         return _id
     }
-    init(_id: String? = nil, dateAdded: Int? = nil, dateChanged: Int? = nil, first: String? = nil, middleInitial: String? = nil, last: String? = nil, age: Int? = nil, aftercare: Bool? = nil, isCounsoleor: Bool? = nil, memberSubscriptions: [String]? = nil, sendTo: Location? = nil, location: Location? = nil, status: Status? = nil, deleted: Bool = false) {
+    init(_id: String? = nil, dateAdded: Int? = nil, dateChanged: Int? = nil, first: String? = nil, middleInitial: String? = nil, last: String? = nil, age: Int? = nil, aftercare: Bool? = nil, isCounsoleor: Bool? = nil, subscribers: [String] = [], subscriptions: [String] = [], sendTo: Location? = nil, location: Location? = nil, status: Status? = nil, deleted: Bool = false) {
         self._id = _id ?? ""
         self.dateAdded = dateAdded ?? 0
         self.dateChanged = dateChanged ?? 0
@@ -42,7 +44,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         self.age = age ?? 0
         self.aftercare = aftercare ?? false
         self.isCounsoleor = isCounsoleor ?? false
-        self.memberSubscriptions = memberSubscriptions ?? []
+        self.subscribers = subscribers
+        self.subscriptions = subscriptions
         self.sendTo = sendTo ?? .unknown
         self.location = location ?? .unknown
         self.status = status ?? .unknown
@@ -58,7 +61,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         age: 16,
         aftercare: true,
         isCounsoleor: true,
-        memberSubscriptions: [],
+        subscribers: [],
+        subscriptions: [],
         sendTo: Location.upperCarpool,
         location: Location.afternoonOption,
         status: Status.at
@@ -74,7 +78,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
     var age: Int
     var aftercare: Bool
     var isCounsoleor: Bool
-    var memberSubscriptions: [String]
+    var subscribers: [String]
+    var subscriptions: [String]
     var sendTo: Location
     var location: Location
     var status: Status
@@ -86,6 +91,9 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
             middleName: middleInitial,
             familyName: last
         )
+    }
+    var fullName: String {
+        self.personName.formatted(.name(style: .long))
     }
     var mediumName: String {
         self.personName.formatted(.name(style: .medium))
@@ -250,7 +258,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         case age
         case aftercare
         case isCounsoleor
-        case memberSubscriptions
+        case subscribers
+        case subscriptions
         case sendTo
         case location
         case status
@@ -269,7 +278,8 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         self.age = try container.decodeIfPresent(Int.self, forKey: Member.CodingKeys.age) ?? 0
         self.aftercare = try container.decodeIfPresent(Bool.self, forKey: Member.CodingKeys.aftercare) ?? false
         self.isCounsoleor = try container.decodeIfPresent(Bool.self, forKey: Member.CodingKeys.isCounsoleor) ?? false
-        self.memberSubscriptions = try container.decodeIfPresent([String].self, forKey: Member.CodingKeys.memberSubscriptions) ?? []
+        self.subscribers = try container.decodeIfPresent([String].self, forKey: Member.CodingKeys.subscribers) ?? []
+        self.subscriptions = try container.decodeIfPresent([String].self, forKey: Member.CodingKeys.subscriptions) ?? []
         self.sendTo = try container.decodeIfPresent(Member.Location.self, forKey: Member.CodingKeys.sendTo) ?? .unknown
         self.location = try container.decodeIfPresent(Member.Location.self, forKey: Member.CodingKeys.location) ?? .unknown
         self.status = try container.decodeIfPresent(Member.Status.self, forKey: Member.CodingKeys.status) ?? .unknown
@@ -288,17 +298,45 @@ struct Member: Codable, Identifiable, Equatable, Hashable {
         try container.encodeIfPresent(self.age, forKey: Member.CodingKeys.age)
         try container.encodeIfPresent(self.aftercare, forKey: Member.CodingKeys.aftercare)
         try container.encodeIfPresent(self.isCounsoleor, forKey: Member.CodingKeys.isCounsoleor)
-        try container.encodeIfPresent(self.memberSubscriptions, forKey: Member.CodingKeys.memberSubscriptions)
+        try container.encodeIfPresent(self.subscriptions, forKey: Member.CodingKeys.subscriptions)
+        try container.encodeIfPresent(self.subscribers, forKey: Member.CodingKeys.subscribers)
         try container.encodeIfPresent(self.sendTo, forKey: Member.CodingKeys.sendTo)
         try container.encodeIfPresent(self.location, forKey: Member.CodingKeys.location)
         try container.encodeIfPresent(self.status, forKey: Member.CodingKeys.status)
         try container.encodeIfPresent(self.deleted, forKey: Member.CodingKeys.deleted)
     }
 }
-struct MemberCollection: Codable {
+
+struct MemberComparator: SortComparator, Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(order)
+    }
+    
+    var id = UUID()
+    
+    static func == (lhs: MemberComparator, rhs: MemberComparator) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    var compareFunction: (_ lhs: Member, _ rhs: Member) -> ComparisonResult
+    
+    func compare(_ lhs: Member, _ rhs: Member) -> ComparisonResult {
+        return compareFunction(lhs, rhs)
+    }
+    
+    typealias Compared = Member
+    
+    var order: SortOrder
+    
+    
+}
+
+struct MemberCollection: Codable, Equatable {
     init(array: [Member]) {
         list = array
     }
+    static var preview = MemberCollection(array: [Member.test, Member.test])
     var list: [Member]
     var debugDescription: String {
         get {
@@ -315,5 +353,29 @@ struct MemberCollection: Codable {
     mutating func removeMember(with id: String) -> Member? {
         guard let index = list.firstIndex(where: {$0._id == id}) else {return nil}
         return list.remove(at: index)
+    }
+    
+    subscript(id: String) -> Member? {
+        get {
+            return getMember(with: id)
+        }
+        set(newValue) {
+            guard let index = getMemberIndex(with: id) else {
+                return
+            }
+            list[index] = newValue!
+        }
+    }
+    subscript(index: Int) -> Member {
+        get {
+            return list[index]
+        }
+        set(newValue) {
+            list[index] = newValue
+        }
+    }
+    
+    static func == (lhs: MemberCollection, rhs: MemberCollection) -> Bool {
+        return lhs.list == rhs.list
     }
 }

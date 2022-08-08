@@ -12,35 +12,30 @@ struct BrowseView: View {
     var body: some View {
             NavigationLink(
                 destination: {
-                    #if os(macOS)
-                    MemberTableView()
-                        .navigationTitle("Members")
-                    #else
                     MemberListView()
-                        .navigationTitle("Members")
-                    #endif
+                        .navigationTitle("members")
                 },
                 label: {
-                    Label("Members", systemImage: "person.3.sequence.fill")
+                    Label("members", systemImage: "person.3.sequence.fill")
                         .symbolRenderingMode(.hierarchical)
                 }
             )
             
             NavigationLink (destination: {
-                Text("Households")
-                    .navigationTitle("Households")
+                Text("households")
+                    .navigationTitle("households")
             },
             label: {
-                Label("Households", systemImage: "house.fill")
+                Label("households", systemImage: "house.fill")
                     .symbolRenderingMode(.multicolor)
             })
             
             NavigationLink (destination: {
-                Text("Rooms")
-                    .navigationTitle("Rooms")
+                Text("rooms")
+                    .navigationTitle("rooms")
             },
             label: {
-                Label("Rooms", systemImage: "person.2.crop.square.stack")
+                Label("rooms", systemImage: "person.2.crop.square.stack")
                     .symbolRenderingMode(.multicolor)
             })
     }

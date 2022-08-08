@@ -16,49 +16,58 @@ struct MemberListView: View {
     var body: some View {
 //        NavigationView {
             List {
-                ForEach($appData.members.list.filter({ member in
-                    return (search=="") ? true : (member.wrappedValue.mediumName).localizedCaseInsensitiveContains(search)
-                }), content: {member in
+                if #available(iOS 16.0, macOS 8.0, macCatalyst 16.0, *) {
                     NavigationLink(destination: {
-                        MemberView(member: member)
-                            .navigationTitle(member.wrappedValue.mediumName)
-                    }) {
-                        MemberLabel(member: member.wrappedValue)
-                    }
-                    #if os(macOS)
-                    .onDeleteCommand {
-                        Task {
-                            try await appData.deleteMember(member.wrappedValue._id)
+                        MemberTableView()
+                    }, label: {
+                        Label("memberTableNavTitle", systemImage: "tablecells")
+                    })
+                }
+                Section("allMembersListSectionTitle") {
+                    ForEach($appData.members.list.filter({ member in
+                        return (search == "") ? true : (member.wrappedValue.mediumName).localizedCaseInsensitiveContains(search)
+                    }), content: {member in
+                        NavigationLink(destination: {
+                            MemberView(member: member)
+                                .navigationTitle(member.wrappedValue.mediumName)
+                        }) {
+                            MemberLabel(member: member.wrappedValue)
                         }
-                    }
-                    #endif
-                    .contextMenu(ContextMenu(menuItems: {
-                        Button {
+#if os(macOS)
+                        .onDeleteCommand {
                             Task {
                                 try await appData.deleteMember(member.wrappedValue._id)
                             }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
                         }
-                        Button {
-                            Task {
-                                print("refresh?")
-                                if (refresh == nil) {
-                                    print("refresh is nil")
+#endif
+                        .contextMenu(ContextMenu(menuItems: {
+                            Button {
+                                Task {
+                                    try await appData.deleteMember(member.wrappedValue._id)
                                 }
-                                await refresh?()
+                            } label: {
+                                Label("delete", systemImage: "trash")
                             }
-                        } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
-                        }
-                    }))
-                })
-                .onDelete { indexSet in
-                    indexSet.map { i in
-                        return appData.members.list[i]._id
-                    }.forEach { _id in
-                        Task {
-                            try await appData.deleteMember(_id)
+                            Button {
+                                Task {
+                                    print("refresh?")
+                                    if (refresh == nil) {
+                                        print("refresh is nil")
+                                    }
+                                    await refresh?()
+                                }
+                            } label: {
+                                Label("refresh", systemImage: "arrow.clockwise")
+                            }
+                        }))
+                    })
+                    .onDelete { indexSet in
+                        indexSet.map { i in
+                            return appData.members.list[i]._id
+                        }.forEach { _id in
+                            Task {
+                                try await appData.deleteMember(_id)
+                            }
                         }
                     }
                 }

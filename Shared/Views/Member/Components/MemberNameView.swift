@@ -13,12 +13,19 @@ struct MemberNameView: View {
         HStack(spacing: 10) {
             Image(systemName: member.systemImage)
                 .font(/*@START_MENU_TOKEN@*/.largeTitle/*@END_MENU_TOKEN@*/)
+                .accessibilityHidden(true)
+                .animation(.easeInOut, value: member)
+                .transition(.opacity)
             VStack {
                 Text(member.personName.formatted(.name(style: .medium)))
+                    .animation(.easeInOut, value: member)
+                    .transition(.opacity)
                 HStack {
-                    Image(systemName: member.status.symbol )
-                    Image(systemName: member.location.symbol )
+                    member.status.label.labelStyle(.iconOnly)
+                    member.location.label.labelStyle(.iconOnly)
                 }
+                .animation(.easeInOut, value: member)
+                .transition(.opacity)
             }
         }
     }

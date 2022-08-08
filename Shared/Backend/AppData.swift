@@ -8,28 +8,42 @@
 import Foundation
 import SwiftUI
 
-@MainActor class AppData: ObservableObject {
+@MainActor class AppData: ObservableObject, Equatable {
     @Published var username: String?
     @Published var password: String?
     @Published var token: String?
     @Published var members = MemberCollection(array: [])
+    @Published var session: Session?
     @Published var loggedOut = true
+    
+    static let preview = {
+        var out = AppData()
+        out.members = MemberCollection.preview
+        return out
+    }()
     
     var notificationTokenState = NotificationTokenState.noToken
     
-    enum NotificationTokenState {
+    enum NotificationTokenState: Equatable {
         case noToken
         case hasToken(Data)
         case declined
     }
     
-    private let hostName = "http://192.168.1.23:3000"
-    private let socketName = "ws://192.168.1.23:4000"
+//    private let hostName = "http://192.168.1.23:3000"
+//    private let socketName = "ws://192.168.1.23:4000"
+//    private let hostName = "http://192.168.200.135:3000"
+//    private let socketName = "ws://192.168.200.135:4000"
+    private let hostName = "http://localhost:3000"
+    private let socketName = "ws://localhost:4000"
     
     private var websocket: WebSocketClient = .shared
     
     func reload() async throws {
         try await self.getMembers()
+        if !self.websocket.opened {
+            await self.setupWebsocket()
+        }
     }
     
     func setNotificationToken(token: Data) async {
@@ -156,6 +170,20 @@ import SwiftUI
         }
         
     }
+    struct Session: Codable, Equatable {
+        var username: String
+        var sessionId: String
+        var userId: String?
+        var memberId: String?
+        
+        static func == (lhs: AppData.Session, rhs: AppData.Session) -> Bool {
+            return lhs.username == rhs.username &&
+            lhs.sessionId == rhs.sessionId &&
+            lhs.userId == rhs.userId &&
+            lhs.memberId == rhs.memberId
+        }
+    }
+    typealias SessionResponse = Session
     func getSessionToken() async throws {
         let urlString = hostName+"/api/authenticate/new_session"
         let url = URL(string: urlString)!
@@ -172,26 +200,13 @@ import SwiftUI
             let (data, response) = try await URLSession.shared.data(for: req)
             try handleStatus(response)
             let string = String.init(data: data, encoding: .utf8)
-            var foundUsername = false
-            var foundToken = false
-            for cookie in (URLSession.shared.configuration.httpCookieStorage?.cookies(for: url) ?? Array<HTTPCookie>()) {
-                if (cookie.name == "sessionId") {
-                    token = cookie.value
-                    foundToken = true
-                }
-                if (cookie.name == "username") {
-                    username = cookie.value
-                    foundUsername = true
-                }
-            }
-            if (!(foundUsername && foundToken)) {
-                print(string as Any)
-                print("not found")
-                print("username: "+(username ?? "nil"))
-                print("token: "+(token ?? "nil"))
-            } else {
-                password = nil
-            }
+            let sessionResponse = try! JSONDecoder().decode(SessionResponse.self, from: data)
+            token = sessionResponse.sessionId
+            username = sessionResponse.username
+            self.session = sessionResponse
+            print("username: "+(username ?? "nil"))
+            print("token: "+(token ?? "nil"))
+            password = nil
             print(string ?? "nil")
         } catch {
             if let urlError = error as? URLError {
@@ -203,7 +218,6 @@ import SwiftUI
             }
         }
         try await sendNotificationToken()
-        
     }
     func getMembers() async throws {
         print("fetchingMembers")
@@ -327,6 +341,64 @@ import SwiftUI
         print(string ?? "nil")
 //        } catch (URLError.)
     }
+    func subscribeTo(_ id: String) async throws {
+        print("subscribing to member with id "+id)
+//        if token == nil {
+//            try await getSessionToken()
+//        }
+        let ourlString = hostName+"/api/subscribe"
+        let ourl = URL(string: ourlString)!
+        var req = URLRequest(url: ourl)
+        //FIXME: handle url errors...
+//        do {
+        let body: [String: String] = [
+            "id": id
+        ]
+        let finalBody = try? JSONSerialization.data(withJSONObject: body)
+        req.httpMethod = "POST"
+        req.httpBody = finalBody
+        req.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.addValue("application/json", forHTTPHeaderField: "Accept")
+        let (data, response) = try await URLSession.shared.data(for: req)
+        try handleStatus(response)
+        let string = String.init(data: data, encoding: .utf8)
+//        withAnimation {
+//            self.members[id]?.id
+//        }
+        //FIXME: Animate
+        print(string ?? "nil")
+//        } catch (URLError.)
+    }
+    func unsubscribeFrom(_ id: String) async throws {
+        print("unsubscribing from member with id "+id)
+//        if token == nil {
+//            try await getSessionToken()
+//        }
+        let ourlString = hostName+"/api/subscribe"
+        let ourl = URL(string: ourlString)!
+        var req = URLRequest(url: ourl)
+        //FIXME: handle url errors...
+//        do {
+        let body: [String: String] = [
+            "id": id
+        ]
+        let finalBody = try? JSONSerialization.data(withJSONObject: body)
+        req.httpMethod = "DELETE"
+        req.httpBody = finalBody
+        req.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
+        req.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.addValue("application/json", forHTTPHeaderField: "Accept")
+        let (data, response) = try await URLSession.shared.data(for: req)
+        try handleStatus(response)
+        let string = String.init(data: data, encoding: .utf8)
+//        withAnimation {
+//            self.members
+//        }
+        //FIXME: Animate
+        print(string ?? "nil")
+//        } catch (URLError.)
+    }
     struct SetStatusRequest: Codable {
         var memberId: String
         var statusId: Member.Status?
@@ -377,6 +449,19 @@ import SwiftUI
     }
     func logout() async throws {
         
+    }
+    
+    static func == (lhs: AppData, rhs: AppData) -> Bool {
+        return lhs.username == rhs.username &&
+        lhs.password == rhs.password &&
+        lhs.token == rhs.token &&
+        lhs.members == rhs.members &&
+        lhs.session == rhs.session &&
+        lhs.loggedOut == rhs.loggedOut &&
+        lhs.notificationTokenState == rhs.notificationTokenState &&
+        lhs.hostName == rhs.hostName &&
+        lhs.socketName == rhs.socketName &&
+        lhs.websocket == rhs.websocket
     }
 }
 

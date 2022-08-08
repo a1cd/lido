@@ -10,51 +10,58 @@ import SwiftUI
 struct MacOS: View {
     @EnvironmentObject var appData: AppData
     
+    @Binding var expansionState: ExpansionState
+    
     @State var creatingMember: Bool = false
+    
     var body: some View {
         Group {
             NavigationView {
-                List {
-                    NavigationLink {
-                        Text("Hello")
-                    } label: {
-                        Label(
-                            "Stats",
-                            systemImage: "chart.line.uptrend.xyaxis"
-                        )
+                VStack {
+                    List {
+                        NavigationLink {
+                            Text("Hello")
+                        } label: {
+                            Label(
+                                "statsTabLabel",
+                                systemImage: "chart.line.uptrend.xyaxis"
+                            )
+                        }
+                        NavigationLink {
+                            CarpoolView()
+                        } label: {
+                            Label(
+                                "carpoolTabLabel",
+                                systemImage: "car.2"
+                            )
+                        }
+                        NavigationLink {
+                            Text("Hello")
+                        } label: {
+                            Label(
+                                "nowTabLabel",
+                                systemImage: "figure.walk.circle"
+                            )
+                        }
+                        DisclosureGroup(isExpanded: $expansionState[expansionState.browse]) {
+                            BrowseView()
+                                .padding(.leading)
+                            
+                        } label: {
+                            Label("browseTabLabel", systemImage: "square.grid.2x2")
+                        }
+                        NavigationLink {
+                            ProfileView()
+                                .navigationTitle("Profile")
+                        } label: {
+                            Label(
+                                "profileTabLabel",
+                                systemImage: "person.crop.circle"
+                            )
+                        }
                     }
-                    NavigationLink {
-                        CarpoolView()
-                    } label: {
-                        Label(
-                            "Carpool",
-                            systemImage: "car.2"
-                        )
-                    }
-                    NavigationLink {
-                        Text("Hello")
-                    } label: {
-                        Label(
-                            "Now",
-                            systemImage: "figure.walk.circle"
-                        )
-                    }
-                    Section("Browse") {
-                        BrowseView()
-                            .padding(.leading)
-                        
-                    }
-                    NavigationLink {
-                        ProfileView()
-                            .navigationTitle("Profile")
-                    } label: {
-                        Label(
-                            "Profile",
-                            systemImage: "person.crop.circle"
-                        )
-                    }
+                    .listStyle(.sidebar)
                 }
-                .listStyle(.sidebar)
             }
             .toolbar(id: "MacOSToolbar") {
                 ToolbarItem(id: "reload", placement: .navigation) {
@@ -67,23 +74,24 @@ struct MacOS: View {
                             }
                         }
                     } label: {
-                        Label("Reload", systemImage: "arrow.clockwise")
+                        Label("reload", systemImage: "arrow.clockwise")
                     }
+
                 }
             }
             .sheet(isPresented: $creatingMember, content: {
                 NewMemberView(submit: {creatingMember  = false})
             })
+            .sheet(isPresented: $appData.loggedOut, content: {
+                LoginView()
+                    .environmentObject(appData)
+            })
         }
-        .sheet(isPresented: $appData.loggedOut, content: {
-            LoginView()
-                .environmentObject(appData)
-        })
     }
 }
 
 struct MacOS_Previews: PreviewProvider {
     static var previews: some View {
-        MacOS()
+        MacOS(expansionState: .constant(ExpansionState()))
     }
 }

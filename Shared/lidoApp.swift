@@ -17,6 +17,7 @@ struct lidoApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: LidoAppDelegate
     #endif
     
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

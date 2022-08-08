@@ -12,7 +12,7 @@ struct MemberView: View {
     @Binding var member: Member
     @State var location: Member.Location = .unknown
     @State var status: Member.Status = .unknown
-    @State var startChange: Bool = true
+    @State var changes: Int = 2
     var body: some View {
         VStack {
             MemberNameView(member: $member)
@@ -21,49 +21,66 @@ struct MemberView: View {
                 Text("\(member.age )")
             }
             Text("\(member.personName.formatted(.name(style: .short))) was last reported \((member.status ).description) \((member.location ).description).")
+                .animation(.easeInOut, value: location)
+                .animation(.easeInOut, value: member)
+                .animation(.easeInOut, value: status)
+                .transition(.opacity)
             HStack {
                 Picker(selection: $status, label: Text("Status").hidden()) {
                     ForEach(Member.Status.allCases) {status in
                         Label(status.description, systemImage: status.symbol)
                     }
                 }
+                .animation(.easeInOut, value: status)
+                .transition(.opacity)
                 Picker(selection: $location, label: Text("Location").hidden()) {
                     ForEach(Member.Location.allCases) {location in
                         Label(location.description, systemImage: location.symbol)
                     }
                 }
+                .animation(.easeInOut, value: location)
+                .transition(.opacity)
             }
         }
+        .userToolbar(.constant(member.id))
         .task {
             location = member.location
             status = member.status
         }
         .onChange(of: member, perform: {_ in
             if location != member.location {
-                startChange = true
-                location = member.location
+                changes += 1
+                withAnimation {
+                    location = member.location
+                }
             }
             if status != member.status {
-                startChange = true
-                status = member.status
+                changes += 1
+                withAnimation {
+                    status = member.status
+                }
             }
         })
         .onChange(of: location, perform: {_ in
-            if !startChange {
+            if changes<=0 {
                 Task {
                     try await appData.setStatus(member._id, status, location)
                 }
             } else {
-                startChange = false
+                print("location")
+                print(changes)
+                changes -= 1
             }
         })
         .onChange(of: status, perform: {_ in
-            if !startChange {
+            if changes<=0 {
                 Task {
                     try await appData.setStatus(member._id, status, location)
                 }
             } else {
-                startChange = false
+                print("status")
+                print(changes)
+                changes -= 1
             }
         })
     }

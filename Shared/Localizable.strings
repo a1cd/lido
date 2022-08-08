@@ -1,0 +1,59 @@
+/* 
+  Localizable.strings
+  lido
+
+  Created by Everett Wilber on 8/3/22.
+  
+*/
+
+// MARK: - General
+"error" = "Error";
+"dismiss" = "Dismiss";
+"members" = "Members";
+"households" = "Households";
+"rooms" = "Rooms";
+
+// FIXME: Tab Label Titles
+"statsTabLabel" = "Stats";
+"carpoolTabLabel" = "Carpool";
+"nowTabLabel" = "Now";
+"browseTabLabel" = "Browse";
+"profileTabLabel" = "Profile";
+
+
+// MARK: - Authentication
+"username" = "Username";
+"password" = "Password";
+"login" = "Login";
+"signup" = "Sign Up";
+"username" = "Username";
+"isStaffToggleLabel" = "Staff Member";
+
+
+// MARK: - Actions
+"sendMemberTo" = "Send User To";
+"setStatus" = "Set Status";
+"setLocation" = "Set Location";
+"delete" = "Delete";
+"refresh" = "Refresh";
+"follow" = "Follow";
+"unfollow" = "Unfollow";
+"createMember" = "Create New Member";
+// ???: Column Names
+"followColumn" = "Follow";
+
+// MARK: - Member Properties
+"name" = "Name";
+"first" = "First";
+"family" = "Family";
+"age" = "Age";
+"birthday" = "Birthday";
+"fullName" = "Full Name";
+"counsoleor" = "Counsoleor";
+"aftercare" = "Aftercare";
+
+// MARK: - Navigation
+"memberTableNavTitle" = "Member Table";
+"allMembersListSectionTitle" = "All Members";
+
+

@@ -21,13 +21,15 @@ struct ContentView: View {
     @EnvironmentObject var appData: AppData
     @EnvironmentObject var appDelegate: LidoAppDelegate
     
+    @SceneStorage("expansionState") var expantionState = ExpansionState()
+    
     var body: some View {
         Group {
             Group {
 #if os(iOS)
                 iOS()
 #elseif os(macOS)
-                MacOS()
+                MacOS(expansionState: $expantionState)
 #else
                 EmptyView()
 #endif

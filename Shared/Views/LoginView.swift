@@ -56,47 +56,110 @@ struct LoginView: View {
             }
         }
     }
+    @State var status = Status.login
+    enum Status {
+        case login
+        case signUp
+    }
+    
+    var login: some View {
+        Form(content: {
+            Text("login")
+                .font(.largeTitle)
+            TextField("username", text: $username)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocorrectionDisabled(true)
+                .textContentType(.username)
+                .submitLabel(SubmitLabel.next)
+#if os(iOS)
+                .autocapitalization(.none)
+#endif
+            SecureField("password", text: $password)
+                .submitLabel(SubmitLabel.done)
+                .autocorrectionDisabled(true)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .textContentType(.password)
+                .frame(idealWidth: 250.0)
+            Button(action: {
+                submit(true)
+            }, label: {Text("login")})
+            .buttonStyle(.borderedProminent)
+        })
+    }
+    
+    @State var signupData = SignupData()
+    var signup: some View {
+        Form(content: {
+            Text("signup")
+                .font(.title)
+            TextField("username", text: $signupData.username)
+            TextField("password", text: $signupData.password)
+            TextField("fullName", value: $signupData.fullName, format: .name(style: .long))
+            TextField("age", value: $signupData.age, format: .number)
+            Toggle(isOn: $signupData.isStaff, label: {Label("isStaffToggleLabel", systemImage: "building.2.crop.circle")})
+        })
+    }
+    
     var body: some View {
         ZStack {
-            VStack {
-                Text("Login")
-                    .font(.largeTitle)
-                TextField("Username", text: $username)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .autocorrectionDisabled(true)
-                    .textContentType(.username)
-                #if os(iOS)
-                    .autocapitalization(.none)
+            VStack(alignment: .center) {
+                if (status == .login) {
+                    login
+                    
+                } else {
+                    signup
+                }
+                Button {
+                    switch status {
+                    case .login:
+                        status = .signUp
+                    case .signUp:
+                        status = .login
+                    }
+                } label: {
+                    switch status {
+                    case .signUp:
+                        Label("login", systemImage: "ellipsis.rectangle")
+                    case .login:
+                        Label("signup", systemImage: "person.crop.circle.badge.plus")
+                    }
+                }
+                #if os(macOS)
+                .buttonStyle(.link)
+                #else
+                .buttonStyle(.borderless)
                 #endif
-                SecureField("Password", text: $password)
-                    .submitLabel(SubmitLabel.return)
-                    .autocorrectionDisabled(true)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .textContentType(.password)
-                Button(action: {
-                    submit(true)
-                }, label: {Text("Login")})
-                .buttonStyle(.borderedProminent)
+                .padding()
             }
-            .disabled(progress != nil)
-            .padding(.all)
-            .scaledToFill()
-            .alert(isPresented: $errorOccured, content: {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(errorDescription ?? ""),
-                    dismissButton: .cancel(
-                        Text("Dismiss"),
-                        action: {reset()}
-                    )
-                )
-            })
             if progress != nil {
                 ProgressView(value: self.progress)
                     .progressViewStyle(CircularProgressViewStyle())
             }
         }
+        .disabled(progress != nil)
+        .padding(.all)
+        .scaledToFill()
+        .alert(isPresented: $errorOccured, content: {
+            Alert(
+                title: Text("error"),
+                message: Text(errorDescription ?? ""),
+                dismissButton: .cancel(
+                    Text("dismiss"),
+                    action: {reset()}
+                )
+            )
+        })
+        .scaledToFit()
+        
     }
+}
+struct SignupData:  Identifiable {
+    @State var id = UUID()
+    @State var username: String = ""
+    @State var password: String = ""
+    @State var fullName: PersonNameComponents = PersonNameComponents()
+    @State var age: Int = 0
+    @State var isStaff: Bool = true
 }
 
 struct LoginView_Previews: PreviewProvider {

@@ -16,7 +16,7 @@ struct iOS: View {
                 Text("Hello")
                     .tabItem {
                         Label(
-                            "Stats",
+                            "statsTabLabel",
                             systemImage: "chart.line.uptrend.xyaxis"
                         )
                     }
@@ -27,14 +27,14 @@ struct iOS: View {
                 }
                     .tabItem {
                         Label(
-                            "Carpool",
+                            "carpoolTabLabel",
                             systemImage: "car.2"
                         )
                     }
                 Text("Hello")
                     .tabItem {
                         Label(
-                            "Now",
+                            "nowTabLabel",
                             systemImage: "figure.walk.circle"
                         )
                     }
@@ -43,14 +43,13 @@ struct iOS: View {
                         BrowseView()
                     }
                     .toolbar(id: "iosToolbar") {
-                        ToolbarItem(id: "Add", placement: .primaryAction) {
-                            Button {
-                                creatingMember = true
-                            } label: {
-                                Label("Add", systemImage: "plus")
-                            }
-                            .buttonStyle(.plain)
-                        }
+//                        ToolbarItem(id: "Add", placement: .primaryAction) {
+//                            Button {
+//                                creatingMember = true
+//                            } label: {
+//                                Label("Add", systemImage: "plus")
+//                            }
+//                        }
                         ToolbarItem(id: "Reload", placement: .navigation) {
                             Button {
                                 Task {
@@ -61,9 +60,8 @@ struct iOS: View {
                                     }
                                 }
                             } label: {
-                                Label("Reload", systemImage: "arrow.clockwise")
+                                Label("reload", systemImage: "arrow.clockwise")
                             }
-                            .buttonStyle(.plain)
                         }
                     }
                 }
@@ -72,14 +70,14 @@ struct iOS: View {
                 })
                 .tabItem {
                     Label(
-                        "Browse",
+                        "browseTabLabel",
                         systemImage: "square.grid.2x2.fill"
                     )
                 }
                 ProfileView()
                     .tabItem {
                         Label(
-                            "Profile",
+                            "profileTabLabel",
                             systemImage: "person.crop.circle"
                         )
                     }

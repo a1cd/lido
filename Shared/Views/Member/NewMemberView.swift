@@ -31,15 +31,15 @@ struct NewMemberView: View {
                     "",
                     value: $name,
                     format: .name(style: .medium),
-                    prompt: Text("Full Name")
+                    prompt: Text("fullName")
                 )
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(.title)
                 Stepper(value: $age, in: 0...100) {
                     Text("Age: \(age)")
                 }
-                Toggle("Aftercare", isOn: $aftercare)
-                Toggle("Counsoleor", isOn: $counsoleor)
+                Toggle("aftercare", isOn: $aftercare)
+                Toggle("counsoleor", isOn: $counsoleor)
                 Button(action: {
                     Task {
                         do {

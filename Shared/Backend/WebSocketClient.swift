@@ -38,7 +38,7 @@ final class WebSocketClient: NSObject {
             
             switch result {
             case .failure(let error):
-                webSocket.cancel(with: URLSessionWebSocketTask.CloseCode.protocolError, reason: error.localizedDescription.data(using: .utf8))
+                self.closeSocket()
                 completion(nil)
                 return
             case .success(let webSocketTaskMessage):
